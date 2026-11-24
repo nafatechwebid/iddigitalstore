@@ -254,9 +254,9 @@
     if (target) requestAnimationFrame(() => target.scrollIntoView());
     else window.scrollTo(0, 0);
   }
-  function setMenu(open) { $("#nav").classList.toggle("open", open); $("#menuBtn").setAttribute("aria-expanded", String(open)); $("#menuBtn").setAttribute("aria-label", open ? "Tutup menu" : "Buka menu"); }
+  function setMenu(open) { $("#nav").classList.toggle("is-open", open); $("#menuBtn").setAttribute("aria-expanded", String(open)); $("#menuBtn").setAttribute("aria-label", open ? "Tutup menu" : "Buka menu"); }
   async function init() {
-    $("#menuBtn").addEventListener("click", () => setMenu(!$("#nav").classList.contains("open")));
+    $("#menuBtn").addEventListener("click", () => setMenu(!$("#nav").classList.contains("is-open")));
     $("#nav").addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
     try { products = await (await fetch("products.json", { cache: "no-cache" })).json(); }
     catch { $("#list").replaceChildren(el("p", { class: "empty" }, "Daftar produk belum bisa dimuat. Muat ulang halaman.")); return; }
