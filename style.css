@@ -263,7 +263,7 @@ dialog::backdrop{background:rgba(13,42,35,.55)}
   .menu-btn[aria-expanded="true"] span:first-child{transform:translateY(4px) rotate(45deg)}
   .menu-btn[aria-expanded="true"] span:last-child{transform:translateY(-4px) rotate(-45deg)}
   .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:.2rem;margin:0;padding:1rem var(--pad) 1.4rem;background:var(--paper);border-bottom:1px solid var(--line);opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .18s,transform .18s}
-  .nav.open{opacity:1;pointer-events:auto;transform:none}
+  .nav.is-open{opacity:1;pointer-events:auto;transform:none}
   .nav a{font-size:1.1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
   .nav a::after{display:none}
   .cart-word{display:none}
