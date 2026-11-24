@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nafa Digital: produk digital siap pakai untuk bisnis dan kreator</title>
+<meta name="description" content="Template, e-book, dan kelas online yang langsung bisa dipakai setelah pembayaran berhasil. Pilih produk, bayar, lalu buka dari akun Anda.">
+<meta name="theme-color" content="#16382f">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Lewati ke konten</a>
+
+<div class="announce"><span>Akses langsung setelah pembayaran</span><i aria-hidden="true">•</i><span>Bayar dengan transfer, QRIS, atau e-wallet</span></div>
+
+<header class="top">
+  <a class="logo" href="#/" aria-label="Nafa Digital, beranda">nafa<span>digital</span></a>
+  <button class="menu-btn" id="menuBtn" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+  <nav id="nav" class="nav" aria-label="Utama">
+    <a href="#produk">Produk</a>
+    <a href="#keunggulan">Keunggulan</a>
+    <a href="#cara-beli">Cara beli</a>
+    <a href="#faq">Pertanyaan</a>
+    <a href="#/akun" data-nav="akun">Akun saya</a>
+  </nav>
+  <button class="cart-btn" id="openCart" type="button" aria-label="Buka keranjang">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.4l2.2 10.2a1 1 0 0 0 1 .8h8.6a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9.5" cy="19" r="1.3"/><circle cx="17" cy="19" r="1.3"/></svg>
+    <span class="cart-word">Keranjang</span><span class="cart-n" id="cartCount">0</span>
+  </button>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- BERANDA -->
+  <div id="view-home" class="view">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Toko produk digital</p>
+        <h1 id="hero-title">Produk digital yang <em>langsung bisa dipakai.</em></h1>
+        <p class="hero-text">Template, e-book, dan kelas online untuk bisnis dan karya Anda. Pilih, bayar, lalu buka dari akun begitu pembayaran berhasil.</p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#produk">Lihat produk <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#cara-beli">Cara membeli</a>
+        </div>
+        <ul class="hero-facts" aria-label="Ringkasan">
+          <li><b>50</b> produk pilihan</li>
+          <li><b>Rp25 ribu</b> harga mulai</li>
+          <li><b>Tetap di akun</b> bisa dibuka kapan saja</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="cover c1"><small>NAFA DIGITAL</small><strong>Template</strong><span>Siap edit</span></div>
+        <div class="cover c2"><small>NAFA DIGITAL</small><strong>Kursus</strong><span>Belajar mandiri</span></div>
+        <div class="cover c3"><small>NAFA DIGITAL</small><strong>E-book</strong><span>Panduan praktis</span></div>
+        <span class="orbit"></span>
+        <div class="note note-top"><b>Rp25rb</b><span>Harga mulai</span></div>
+        <div class="note note-bot"><i>✓</i><div><b>Akses langsung</b><span>Setelah bayar</span></div></div>
+      </div>
+    </section>
+
+    <section class="trust" aria-label="Keunggulan layanan">
+      <div><i>✓</i><span><b>Akses langsung</b>Terbuka otomatis setelah bayar</span></div>
+      <div><i>✓</i><span><b>Pembayaran aman</b>Transfer, QRIS, e-wallet</span></div>
+      <div><i>✓</i><span><b>Mudah dipakai</b>Ramah untuk pemula</span></div>
+      <div><i>✓</i><span><b>Bantuan via WhatsApp</b>Kami siap membantu</span></div>
+    </section>
+
+    <section class="products" id="produk" aria-labelledby="products-title">
+      <div class="sec-head">
+        <div><p class="eyebrow">Katalog</p><h2 id="products-title">Pilih sesuai kebutuhan Anda</h2></div>
+        <p>Klik produk untuk melihat isinya. Tambahkan ke keranjang, lalu bayar sekali untuk semuanya.</p>
+      </div>
+      <label class="search"><span class="sr">Cari produk</span><input id="q" type="search" placeholder="Cari produk, misalnya &quot;Ramadhan&quot; atau &quot;Canva&quot;" autocomplete="off"></label>
+      <div id="cats" class="tabs" role="group" aria-label="Kategori produk"></div>
+      <p id="resultInfo" class="info" aria-live="polite"></p>
+      <div id="list" class="grid"></div>
+      <div class="more-wrap"><button class="btn btn-dark" id="more" type="button" hidden>Tampilkan lebih banyak</button></div>
+    </section>
+
+    <section class="why" id="keunggulan" aria-labelledby="why-title">
+      <div class="why-intro">
+        <p class="eyebrow">Kenapa di sini</p>
+        <h2 id="why-title">Dibuat untuk <em>benar-benar dipakai.</em></h2>
+        <p>Produk digital yang baik bukan yang paling rumit, melainkan yang paling mudah membawa Anda dari rencana ke hasil.</p>
+      </div>
+      <div class="why-list">
+        <article><span>✓</span><div><h3>Langsung dipakai</h3><p>Begitu pembayaran berhasil, produk muncul di Akun saya. Tidak perlu menunggu admin.</p></div></article>
+        <article><span>✓</span><div><h3>Satu kali bayar</h3><p>Tidak ada langganan. Produk yang sudah dibeli tetap bisa dibuka kapan saja dari akun Anda.</p></div></article>
+        <article><span>✓</span><div><h3>Pembayaran aman</h3><p>Anda membayar lewat halaman resmi Midtrans. Kami tidak menyimpan data kartu atau rekening Anda.</p></div></article>
+      </div>
+    </section>
+
+    <section class="steps" id="cara-beli" aria-labelledby="steps-title">
+      <div class="steps-feature">
+        <p class="eyebrow">Cara beli</p>
+        <h2 id="steps-title">Tiga langkah, tanpa ribet.</h2>
+        <p>Cukup siapkan email yang aktif. Email itu juga dipakai untuk masuk ke akun Anda nanti.</p>
+        <a class="btn btn-light" href="#produk">Mulai pilih produk <span aria-hidden="true">→</span></a>
+      </div>
+      <ol class="steps-list">
+        <li><b>1</b><div><h3>Pilih produk</h3><p>Tekan tombol Tambah pada produk yang Anda mau, lalu buka keranjang.</p></div></li>
+        <li><b>2</b><div><h3>Isi data dan bayar</h3><p>Masukkan nama dan email, lalu pilih cara bayar: transfer bank, QRIS, atau e-wallet.</p></div></li>
+        <li><b>3</b><div><h3>Buka dari Akun saya</h3><p>Masuk dengan kode yang dikirim ke email Anda. Produk sudah menunggu di sana.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="faq" id="faq" aria-labelledby="faq-title">
+      <div>
+        <p class="eyebrow">Pertanyaan umum</p>
+        <h2 id="faq-title">Hal yang sering ditanyakan</h2>
+        <p class="faq-note">Belum menemukan jawabannya? Hubungi kami lewat WhatsApp yang tertera saat pembayaran.</p>
+      </div>
+      <div class="acc">
+        <details open><summary>Bagaimana cara membuka produk setelah bayar?<span aria-hidden="true">+</span></summary><p>Buka menu Akun saya, masukkan email pembelian, lalu isi kode 6 digit yang kami kirim ke email itu. Produk Anda akan tampil di sana dan bisa langsung dibuka atau diunduh.</p></details>
+        <details><summary>Apakah produk tetap ada setelah dibeli?<span aria-hidden="true">+</span></summary><p>Produk yang sudah dibeli tetap ada di akun Anda dan bisa dibuka kapan saja.</p></details>
+        <details><summary>Boleh dipakai di HP dan laptop?<span aria-hidden="true">+</span></summary><p>Boleh. Satu akun bisa dipakai di HP dan laptop milik Anda. Produk ini untuk pemakaian pribadi, jadi tidak boleh dibagikan atau dijual ulang.</p></details>
+        <details><summary>Metode pembayaran apa saja yang tersedia?<span aria-hidden="true">+</span></summary><p>Transfer bank, QRIS, dan e-wallet, sesuai pilihan yang tampil di halaman pembayaran.</p></details>
+        <details><summary>Bisakah saya minta uang kembali?<span aria-hidden="true">+</span></summary><p>Karena produk digital langsung bisa dibuka, uang kembali hanya diproses jika produk bermasalah dan kendalanya tidak bisa kami selesaikan.</p></details>
+      </div>
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <p class="eyebrow">Saatnya mulai</p>
+      <h2 id="cta-title">Ide besar Anda layak <em>diwujudkan hari ini.</em></h2>
+      <p>Pilih produk yang Anda butuhkan dan ambil langkah pertama sekarang.</p>
+      <a class="btn btn-coral" href="#produk">Lihat semua produk <span aria-hidden="true">→</span></a>
+    </section>
+  </div>
+
+  <!-- AKUN -->
+  <section id="view-akun" class="view" hidden>
+    <div class="account">
+      <p class="eyebrow">Akun</p>
+      <h1>Akun saya</h1>
+      <div id="authBox"></div>
+      <div id="libBox" hidden></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="foot-top">
+    <div><a class="logo logo-light" href="#/">nafa<span>digital</span></a><p>Produk digital praktis untuk membantu Anda bekerja lebih cerdas dan tumbuh lebih cepat.</p></div>
+    <div class="foot-links">
+      <div><b>Belanja</b><a href="#produk">Semua produk</a><a href="#cara-beli">Cara membeli</a></div>
+      <div><b>Bantuan</b><a href="#faq">Pertanyaan umum</a><a href="#/akun">Akun saya</a></div>
+    </div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 Nafa Digital</span><span>Pembelian berlisensi pribadi. Dilarang dijual ulang atau dibagikan.</span></div>
+</footer>
+
+<!-- Detail produk -->
+<dialog id="detail" class="modal" aria-labelledby="dTitle">
+  <form method="dialog" class="x-row"><button class="x" aria-label="Tutup">×</button></form>
+  <div class="d-art" id="dArt" aria-hidden="true"></div>
+  <p id="dMeta" class="cat"></p>
+  <h2 id="dTitle"></h2>
+  <p id="dDesc" class="d-desc"></p>
+  <ul class="terms">
+    <li>Terbuka otomatis setelah pembayaran berhasil.</li>
+    <li>Bisa dibuka dari HP dan laptop Anda.</li>
+    <li>Untuk pemakaian pribadi. Tidak boleh dijual ulang atau dibagikan.</li>
+  </ul>
+  <div class="dfoot"><strong id="dPrice"></strong><button class="btn btn-dark" id="dAdd" type="button">Tambah ke keranjang</button></div>
+</dialog>
+
+<!-- Keranjang -->
+<dialog id="cart" class="drawer" aria-labelledby="cTitle">
+  <div class="cart-head">
+    <div><p class="eyebrow">Pesanan Anda</p><h2 id="cTitle">Keranjang</h2></div>
+    <form method="dialog"><button class="x" aria-label="Tutup keranjang">×</button></form>
+  </div>
+  <div class="cart-body">
+    <ul id="cartList" class="cartlist"></ul>
+    <div id="cartEmpty" class="empty-cart" hidden>
+      <span>0</span><h3>Keranjang masih kosong</h3><p>Pilih produk yang paling sesuai dengan kebutuhan Anda.</p>
+      <button class="btn btn-dark" type="button" id="startShop">Mulai belanja</button>
+    </div>
+    <form id="checkout" class="checkout" autocomplete="on" novalidate>
+      <p class="total"><span>Total</span><strong id="cartTotal">Rp0</strong></p>
+      <label>Nama lengkap<input name="name" required minlength="2" maxlength="80" autocomplete="name"></label>
+      <label>Email aktif<small>Dipakai untuk masuk ke akun dan membuka produk</small><input name="email" type="email" required autocomplete="email" inputmode="email"></label>
+      <label>Nomor WhatsApp (boleh dikosongkan)<input name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx"></label>
+      <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="agree"><input type="checkbox" name="agree" required><span>Saya setuju produk ini hanya untuk pemakaian pribadi dan tidak akan dijual ulang atau dibagikan.</span></label>
+      <p id="coErr" class="err" role="alert" hidden></p>
+      <button class="btn btn-coral wide" id="payBtn" type="submit">Bayar sekarang <span aria-hidden="true">→</span></button>
+      <p class="secure">Pembayaran aman · Produk terbuka otomatis</p>
+    </form>
+  </div>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>
