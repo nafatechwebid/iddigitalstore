@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Skillstore: produk digital siap pakai</title>
+<meta name="description" content="Template, e-book, dan kelas untuk bisnis online. Bayar lewat Midtrans, akses terbuka otomatis di 1 HP dan 1 laptop.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Lewati ke konten</a>
+
+<header class="top">
+  <a class="brand" href="#/" aria-label="Skillstore, beranda">skillstore</a>
+  <nav aria-label="Utama">
+    <a href="#/" data-nav="home">Katalog</a>
+    <a href="#/akun" data-nav="akun">Akun</a>
+    <button class="cartbtn" id="openCart" type="button">Keranjang <span id="cartCount">0</span></button>
+  </nav>
+</header>
+
+<div id="demoBanner" class="demo" hidden>Mode demo. Isi config.js dengan alamat Supabase dan kunci Midtrans agar pembayaran dan login aktif.</div>
+
+<main id="main" tabindex="-1">
+  <!-- BERANDA -->
+  <section id="view-home" class="view">
+    <div class="hero">
+      <div class="hero-copy">
+        <h1>Produk digital yang langsung bisa Anda pakai setelah bayar.</h1>
+        <p>Template, e-book, dan kelas untuk bisnis online. Pembayaran lewat Midtrans, akses terbuka otomatis begitu pembayaran berhasil.</p>
+        <a class="btn primary" href="#katalog">Lihat katalog</a>
+      </div>
+      <aside class="pass" aria-label="Cara kerja akses">
+        <div class="pass-head"><span class="pass-title">Kartu akses pembeli</span><span class="pass-note">Satu akun, dua perangkat</span></div>
+        <div class="slots">
+          <div class="slot on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M10.5 18.5h3"/></svg><b>HP</b><small>1 perangkat</small></div>
+          <div class="slot on"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="11.5" rx="1.6"/><path d="M2 19.5h20"/></svg><b>Laptop</b><small>1 perangkat</small></div>
+        </div>
+        <p class="pass-foot">Akun yang dipakai di perangkat ketiga akan ditolak. Ini menjaga produk tidak dijual ulang dengan harga sembarangan.</p>
+      </aside>
+    </div>
+
+    <div class="shop" id="katalog">
+      <aside class="filters" aria-label="Filter katalog">
+        <label class="search"><span class="sr">Cari produk</span><input id="q" type="search" placeholder="Cari produk" autocomplete="off"></label>
+        <ul id="cats" class="cats"></ul>
+      </aside>
+      <div class="list-wrap">
+        <p id="resultInfo" class="info" aria-live="polite"></p>
+        <ul id="list" class="list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- AKUN -->
+  <section id="view-akun" class="view" hidden>
+    <div class="account">
+      <h1>Akun saya</h1>
+      <div id="authBox"></div>
+      <div id="libBox" hidden></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Setiap pembelian berlisensi personal untuk satu pembeli. Dilarang menjual ulang, membagikan akun, atau mengunggah ulang produk.</p>
+  <p>Pertanyaan atau kendala akses: hubungi admin lewat WhatsApp yang tertera saat checkout.</p>
+</footer>
+
+<!-- Detail produk -->
+<dialog id="detail" aria-labelledby="dTitle">
+  <form method="dialog"><button class="x" aria-label="Tutup">Tutup</button></form>
+  <h2 id="dTitle"></h2>
+  <p id="dMeta" class="meta"></p>
+  <p id="dDesc"></p>
+  <ul class="terms">
+    <li>Akses terbuka otomatis setelah Midtrans menyatakan pembayaran berhasil.</li>
+    <li>Bisa dipakai di 1 HP dan 1 laptop.</li>
+    <li>Lisensi personal. Tidak boleh dijual ulang atau dibagikan.</li>
+  </ul>
+  <div class="dfoot"><strong id="dPrice"></strong><button class="btn primary" id="dAdd" type="button">Tambah ke keranjang</button></div>
+</dialog>
+
+<!-- Keranjang + checkout -->
+<dialog id="cart" aria-labelledby="cTitle">
+  <form method="dialog"><button class="x" aria-label="Tutup">Tutup</button></form>
+  <h2 id="cTitle">Keranjang</h2>
+  <ul id="cartList" class="cartlist"></ul>
+  <p id="cartEmpty" class="empty" hidden>Keranjang masih kosong. Pilih produk dari katalog.</p>
+  <form id="checkout" class="checkout" autocomplete="on" novalidate>
+    <p class="total">Total <strong id="cartTotal">Rp0</strong></p>
+    <label>Nama lengkap<input name="name" required minlength="2" maxlength="80" autocomplete="name"></label>
+    <label>Email (dipakai untuk masuk ke akun)<input name="email" type="email" required autocomplete="email" inputmode="email"></label>
+    <label>Nomor WhatsApp<input name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx"></label>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label class="agree"><input type="checkbox" name="agree" required> Saya setuju produk ini untuk pemakaian pribadi, maksimal di 1 HP dan 1 laptop.</label>
+    <p id="coErr" class="err" role="alert" hidden></p>
+    <button class="btn primary wide" id="payBtn" type="submit">Bayar dengan Midtrans</button>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="config.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>
