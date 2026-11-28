@@ -25,6 +25,7 @@
     <a href="#produk">Produk</a>
     <a href="#keunggulan">Keunggulan</a>
     <a href="#cara-beli">Cara beli</a>
+    <a href="#panduan">Artikel</a>
     <a href="#faq">Pertanyaan</a>
     <a href="#/akun" data-nav="akun">Akun saya</a>
   </nav>
@@ -107,9 +108,18 @@
       </div>
       <ol class="steps-list">
         <li><b>1</b><div><h3>Pilih produk</h3><p>Tekan tombol Tambah pada produk yang Anda mau, lalu buka keranjang.</p></div></li>
-        <li><b>2</b><div><h3>Isi data dan bayar</h3><p>Masukkan nama dan email, lalu pilih cara bayar: transfer bank, QRIS, atau e-wallet.</p></div></li>
+        <li><b>2</b><div><h3>Isi data dan bayar</h3><p>Masukkan nama dan email, lalu scan QRIS dari bank atau e-wallet apa pun. Admin memeriksa pembayaran dan membuka produk Anda.</p></div></li>
         <li><b>3</b><div><h3>Buka dari Akun saya</h3><p>Masuk dengan kode yang dikirim ke email Anda. Produk sudah menunggu di sana.</p></div></li>
       </ol>
+    </section>
+
+    <section class="guides" id="panduan" aria-labelledby="guides-title">
+      <div class="sec-head"><div><p class="eyebrow">Artikel</p><h2 id="guides-title">Siapkan Ramadhan dan Idul Fitri</h2></div><a class="guides-all" href="artikel/">Lihat semua artikel</a></div>
+      <ul class="guide-cards">
+        <li><a href="artikel/kalender-konten-ramadhan-2027"><span class="g-t">Kalender Konten Ramadhan 2027 untuk Jualan Online</span><span class="g-d">Jadwal posting dari sebelum Ramadhan sampai Idul Fitri.</span></a></li>
+        <li><a href="artikel/cara-membuat-desain-countdown-ramadhan"><span class="g-t">Cara Membuat Desain Countdown Ramadhan</span><span class="g-d">Ukuran, huruf, warna, dan jadwal posting untuk Stories.</span></a></li>
+        <li><a href="artikel/ide-ucapan-idul-fitri-untuk-pelanggan"><span class="g-t">Ide Ucapan Idul Fitri untuk Pelanggan</span><span class="g-d">Contoh kalimat dan tips desain yang rapi.</span></a></li>
+      </ul>
     </section>
 
     <section class="faq" id="faq" aria-labelledby="faq-title">
@@ -150,7 +160,7 @@
   <div class="foot-top">
     <div><a class="logo logo-light" href="#/">nafa<span>digital</span></a><p>Produk digital praktis untuk membantu Anda bekerja lebih cerdas dan tumbuh lebih cepat.</p></div>
     <div class="foot-links">
-      <div><b>Belanja</b><a href="#produk">Semua produk</a><a href="#cara-beli">Cara membeli</a><a href="#faq">Pertanyaan umum</a><a href="#/akun">Akun saya</a></div>
+      <div><b>Belanja</b><a href="#produk">Semua produk</a><a href="#cara-beli">Cara membeli</a><a href="#panduan">Artikel</a><a href="#faq">Pertanyaan umum</a><a href="#/akun">Akun saya</a></div>
       <div><b>Informasi</b><a href="syarat">Syarat &amp; ketentuan</a><a href="refund">Kebijakan refund</a><a href="privasi">Kebijakan privasi</a><a href="https://wa.me/6285290078889?text=Halo%20Nafa%20Digital%2C%20saya%20butuh%20bantuan" target="_blank" rel="noopener">Chat WhatsApp</a></div>
     </div>
   </div>
@@ -165,11 +175,29 @@
   <h2 id="dTitle"></h2>
   <p id="dDesc" class="d-desc"></p>
   <ul class="terms">
-    <li>Terbuka otomatis setelah pembayaran berhasil.</li>
+    <li>Terbuka di akun Anda setelah pembayaran dikonfirmasi.</li>
     <li>Bisa dibuka dari HP dan laptop Anda.</li>
     <li>Untuk pemakaian pribadi. Tidak boleh dijual ulang atau dibagikan.</li>
   </ul>
   <div class="dfoot"><strong id="dPrice"></strong><button class="btn btn-dark" id="dAdd" type="button">Tambah ke keranjang</button></div>
+</dialog>
+
+<!-- Pembayaran QRIS -->
+<dialog id="qris" class="modal qris" aria-labelledby="qTitle">
+  <form method="dialog" class="x-row"><button class="x" aria-label="Tutup">×</button></form>
+  <h2 id="qTitle">Bayar dengan QRIS</h2>
+  <p class="q-amount-label">Nominal yang harus dibayar</p>
+  <p class="q-amount" id="qAmount"></p>
+  <p class="q-code" id="qCode"></p>
+  <div class="q-box"><div id="qImg" role="img" aria-label="Kode QRIS pembayaran"></div><p id="qMerchant">NAFATECHID SMG PRODIG</p></div>
+  <ol class="q-steps">
+    <li>Buka aplikasi bank atau e-wallet, lalu pilih bayar dengan scan QR.</li>
+    <li>Scan kode di atas. Nominal sudah terisi, pastikan sama dengan angka di atas.</li>
+    <li>Setelah berhasil, tekan tombol WhatsApp di bawah dan kirim bukti pembayaran.</li>
+  </ol>
+  <a class="btn btn-coral wide" id="qWa" target="_blank" rel="noopener">Konfirmasi lewat WhatsApp</a>
+  <p class="q-foot" id="qFoot"></p>
+  <p class="q-foot">Produk terbuka di halaman <a class="wa" href="#/akun" id="qAcc">Akun</a> setelah admin memeriksa pembayaran. Pesanan berlaku 24 jam.</p>
 </dialog>
 
 <!-- Keranjang -->
@@ -191,9 +219,10 @@
       <label>Nomor WhatsApp (boleh dikosongkan)<input name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="08xxxxxxxxxx"></label>
       <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <label class="agree"><input type="checkbox" name="agree" required><span>Saya setuju produk ini hanya untuk pemakaian pribadi dan tidak akan dijual ulang atau dibagikan, serta menyetujui <a class="wa" href="syarat" target="_blank" rel="noopener">Syarat &amp; Ketentuan</a> dan <a class="wa" href="refund" target="_blank" rel="noopener">Kebijakan Refund</a>.</span></label>
+      <p id="manualNote" class="manual-note" hidden><strong>Pembayaran via QRIS.</strong> Setelah Anda membayar, admin memeriksa pembayaran dan membuka produk di halaman Akun. Jika lebih dari 1 jam belum terbuka, hubungi kami lewat WhatsApp.</p>
       <p id="coErr" class="err" role="alert" hidden></p>
       <button class="btn btn-coral wide" id="payBtn" type="submit">Bayar sekarang <span aria-hidden="true">→</span></button>
-      <p class="secure">Pembayaran aman · Produk terbuka otomatis</p>
+      <p class="secure" id="secureNote">Pembayaran aman · Produk terbuka otomatis</p>
     </form>
   </div>
 </dialog>
@@ -201,6 +230,7 @@
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 <script src="config.js"></script>
+<script src="qrcode.js"></script>
 <script src="app.js" defer></script>
 </body>
 </html>
