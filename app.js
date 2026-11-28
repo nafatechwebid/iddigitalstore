@@ -184,7 +184,7 @@
       let r = await api("claim-device", { method: "POST" });
       let d = await r.json().catch(() => ({}));
       if (d.device_token) store.set("ss_dt", d.device_token);
-      if (!r.ok) return lib.replaceChildren(panelError(d.error || "Akun ini sedang dipakai di perangkat lain. Hubungi admin untuk bantuan."));
+      if (!r.ok) return lib.replaceChildren(panelError(d.error || "Akun ini sedang dipakai di perangkat lain. Hubungi admin lewat WhatsApp 0852-9007-8889."));
       r = await api("library"); d = await r.json().catch(() => ({}));
       if (!r.ok) return lib.replaceChildren(panelError(d.error || "Akun belum bisa dimuat. Coba lagi sebentar lagi."));
       renderLibrary(d);
@@ -197,10 +197,23 @@
     const lib = $("#libBox");
     const pass = el("div", { class: "panel hello" }, el("h2", {}, `Halo, ${d.name || "pembeli"}`), el("p", {}, "Produk yang sudah Anda bayar ada di bawah ini. Buka atau unduh kapan saja."));
     const items = (d.products || []).map((p) => productItem(p));
-    lib.replaceChildren(pass,
+    lib.replaceChildren(pass, guide(),
       el("div", { class: "panel" }, el("h2", {}, "Produk saya"),
         items.length ? el("ul", { class: "lib" }, items) : el("p", {}, "Belum ada produk di akun ini. Jika baru membayar, tunggu beberapa detik lalu muat ulang halaman."),
         el("button", { class: "open", type: "button", onclick: () => { sess.clear(); renderAuth(); } }, "Keluar dari akun")));
+  }
+  const sizeOf = (f) => (f.size ? ` (${Number(f.size) >= 1048576 ? (Number(f.size) / 1048576).toFixed(0) + " MB" : Math.max(1, Math.round(Number(f.size) / 1024)) + " KB"})` : "");
+  function guide() {
+    const step = (t, d) => el("li", {}, el("strong", {}, t), " ", d);
+    return el("details", { class: "panel guide", open: true },
+      el("summary", {}, "Cara mengunduh dan membuka produk"),
+      el("ol", {},
+        step("Unduh file.", "Tekan tombol Buka isi produk, lalu tekan Unduh di samping nama file. Tunggu sampai muncul tulisan Selesai. Jangan tutup halaman saat proses berjalan."),
+        step("Cari file yang sudah diunduh.", "Di HP Android, buka aplikasi File lalu pilih Unduhan. Di iPhone, buka aplikasi File lalu pilih Unduhan. Di laptop, buka folder Unduhan atau Downloads."),
+        step("Buka file berakhiran .zip.", "File zip adalah kumpulan file yang dibungkus jadi satu. Di Android, ketuk file lalu pilih Ekstrak. Di iPhone, ketuk file dan folder isinya muncul sendiri. Di Windows, klik kanan lalu pilih Ekstrak Semua. Di Mac, klik dua kali."),
+        step("Produk dengan beberapa bagian.", "Jika ada Part 1, Part 2, dan seterusnya, unduh semuanya lalu ekstrak satu per satu ke folder yang sama.")),
+      el("p", {}, "Template presentasi (.pptx) dibuka dengan PowerPoint atau Google Slides. File .pdf dibuka dengan pembaca PDF. Gambar dibuka lewat Galeri atau Foto."),
+      el("p", {}, "Gunakan WiFi untuk file besar. Jika unduhan gagal, tekan Unduh sekali lagi. Jika masih bermasalah, langsung hubungi kami lewat ", el("a", { class: "wa", href: "https://wa.me/6285290078889?text=Halo%20Nafa%20Digital%2C%20saya%20butuh%20bantuan", target: "_blank", rel: "noopener" }, "WhatsApp 0852-9007-8889"), "."));
   }
   function productItem(p) {
     const status = el("p", { class: "status", role: "status" }), files = el("ul", { class: "files" });
@@ -212,7 +225,7 @@
         const d = await r.json().catch(() => ({}));
         if (!r.ok) throw new Error(d.error || "Isi produk belum bisa dibuka.");
         status.textContent = d.files.length ? "" : "Folder ini kosong. Hubungi admin.";
-        files.replaceChildren(...d.files.map((f) => el("li", {}, el("span", {}, f.name),
+        files.replaceChildren(...d.files.map((f) => el("li", {}, el("span", {}, f.name + sizeOf(f)),
           f.mimeType === "application/vnd.google-apps.folder"
             ? el("button", { type: "button", onclick: () => subfolder(p.id, f.id, files, status) }, "Buka")
             : el("button", { type: "button", onclick: () => fetchFile(p.id, f.id, status) }, "Unduh"))));
@@ -225,7 +238,7 @@
       const r = await api("download", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ productId: pid, fileId: fid }) });
       const d = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(d.error || "Folder tidak bisa dibuka.");
-      files.replaceChildren(...d.files.map((f) => el("li", {}, el("span", {}, f.name),
+      files.replaceChildren(...d.files.map((f) => el("li", {}, el("span", {}, f.name + sizeOf(f)),
         f.mimeType === "application/vnd.google-apps.folder" ? el("span", {}, "Folder") : el("button", { type: "button", onclick: () => fetchFile(pid, f.id, status) }, "Unduh"))));
     } catch (x) { status.textContent = x.message; }
   }
@@ -240,7 +253,7 @@
       const m = /filename\*=UTF-8''([^;]+)/i.exec(r.headers.get("content-disposition") || "");
       const a = el("a", { href: URL.createObjectURL(new Blob(parts)), download: m ? decodeURIComponent(m[1]) : "produk" });
       document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
-      status.textContent = "Selesai. Cek folder unduhan Anda.";
+      status.textContent = "Selesai. File ada di folder Unduhan. Jika berakhiran .zip, ekstrak dulu agar bisa dibuka.";
     } catch (x) { status.textContent = x.message; }
   }
 
