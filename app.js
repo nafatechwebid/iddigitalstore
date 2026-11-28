@@ -101,6 +101,7 @@
   async function submitCheckout(e) {
     e.preventDefault();
     const f = e.target, err = $("#coErr"); err.hidden = true;
+    if (MANUAL) return submitManual(e);
     if (!LIVE || !C.MIDTRANS_CLIENT_KEY) { err.textContent = "Pembayaran belum aktif. Silakan coba lagi nanti atau hubungi admin."; err.hidden = false; return; }
     if (!f.reportValidity()) return;
     const btn = $("#payBtn"); btn.disabled = true; btn.textContent = "Menyiapkan pembayaran…";
@@ -123,6 +124,47 @@
     } catch (x) { err.textContent = x.message; err.hidden = false; }
     finally { btn.disabled = false; btn.textContent = "Bayar sekarang →"; }
   }
+  /* ---------------- Pembayaran QRIS manual (sementara) ---------------- */
+  const MANUAL = C.PAYMENT_MODE === "qris_manual";
+  const WA_NUM = "6285290078889";
+  function qrSvg(text) {
+    const q = window.qrcode(0, "M"); q.addData(text); q.make();
+    const n = q.getModuleCount(), m = 4; let d = "";
+    for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c + m} ${r + m}h1v1h-1z`;
+    const NS = "http://www.w3.org/2000/svg", s = document.createElementNS(NS, "svg");
+    s.setAttribute("viewBox", `0 0 ${n + m * 2} ${n + m * 2}`); s.setAttribute("shape-rendering", "crispEdges"); s.setAttribute("aria-hidden", "true");
+    const bg = document.createElementNS(NS, "rect"); bg.setAttribute("width", "100%"); bg.setAttribute("height", "100%"); bg.setAttribute("fill", "#fff");
+    const p = document.createElementNS(NS, "path"); p.setAttribute("d", d); p.setAttribute("fill", "#000");
+    s.append(bg, p); return s;
+  }
+  async function submitManual(e) {
+    const f = e.target, err = $("#coErr");
+    if (!LIVE) { err.textContent = "Pembayaran belum aktif. Silakan hubungi admin lewat WhatsApp."; err.hidden = false; return; }
+    if (!f.reportValidity()) return;
+    const btn = $("#payBtn"); btn.disabled = true; btn.textContent = "Menyiapkan QRIS…";
+    try {
+      const r = await fetch(FN("create-manual-order"), {
+        method: "POST", headers: { "Content-Type": "application/json", apikey: C.SUPABASE_ANON_KEY },
+        body: JSON.stringify({ name: f.name.value, email: f.email.value, whatsapp: f.whatsapp.value, website: f.website.value, items: cart }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(d.error || "Pesanan gagal dibuat. Coba lagi.");
+      const email = f.email.value.trim().toLowerCase(); store.set("ss_email", email);
+      showQris(d, email);
+      cart = []; store.set("ss_cart", cart); renderList(); renderCart();
+    } catch (x) { err.textContent = x.message; err.hidden = false; }
+    finally { btn.disabled = false; btn.textContent = "Bayar sekarang →"; }
+  }
+  function showQris(d, email) {
+    $("#qAmount").textContent = rp(d.pay_amount);
+    $("#qCode").textContent = `Harga ${rp(d.base)} + kode unik ${rp(d.unique_code)}. Bayar tepat sesuai angka ini.`;
+    $("#qImg").replaceChildren(qrSvg(d.qris));
+    const msg = `Halo Nafa Digital, saya sudah bayar pesanan ${d.order_id} sebesar ${rp(d.pay_amount)}. Email: ${email}`;
+    $("#qWa").href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`;
+    $("#qFoot").textContent = `Kode pesanan: ${d.order_id}`;
+    $("#cart").close(); $("#qris").showModal();
+  }
+
   function done(msg) { cart = []; store.set("ss_cart", cart); renderList(); renderCart(); location.hash = "#/akun"; toast(msg, 9000); }
 
   /* ---------------- Auth (OTP email via Supabase Auth) ---------------- */
@@ -281,6 +323,7 @@
     $("#openCart").addEventListener("click", openCart);
     $("#startShop").addEventListener("click", () => { $("#cart").close(); location.hash = "#produk"; });
     $("#checkout").addEventListener("submit", submitCheckout);
+    if (MANUAL) { $("#manualNote").hidden = false; $("#secureNote").textContent = "Pembayaran QRIS · Dikonfirmasi admin"; }
     for (const d of document.querySelectorAll("dialog")) d.addEventListener("click", (e) => { if (e.target === d) d.close(); });
     window.addEventListener("hashchange", route); route();
   }
