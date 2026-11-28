@@ -1,2 +1,6 @@
 User-agent: *
 Disallow: /private/
+
+Sitemap: 
+https://nafadigitalstore.web.id/sitemap.xml
+
