@@ -315,3 +315,13 @@ dialog::backdrop{background:rgba(13,42,35,.55)}
   *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
 }
 .more-wrap{display:flex;justify-content:center;margin-top:2.5rem}
+
+/* halaman hukum */
+.legal-back{margin-left:auto;font-weight:600;font-size:.92rem;color:var(--ink);text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+.legal{padding-top:4rem;padding-bottom:5rem}
+.legal h1{margin-bottom:.4rem}
+.legal-date{color:var(--muted);font-size:.9rem;margin-bottom:2.2rem}
+.legal h2{font-family:var(--serif);font-weight:400;font-size:1.45rem;margin:2.2rem 0 .6rem}
+.legal p{max-width:68ch;line-height:1.75;margin:.6rem 0}
+.legal ul{margin:.6rem 0 .6rem 1.3rem;max-width:68ch;list-style:disc;display:grid;gap:.45rem}
+.legal li{line-height:1.7}
